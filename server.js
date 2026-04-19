@@ -10,6 +10,17 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Ensure DB is connected before handling any requests (Serverless cold starts)
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (err) {
+    console.error('DB Connection Error:', err);
+    res.status(500).send('Database connection failed.');
+  }
+});
+
 // ── API Routes ───────────────────────────────────────────────────────────
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/dashboard', require('./routes/dashboard'));
@@ -25,16 +36,21 @@ app.get('/{*path}', (req, res) => {
 });
 
 // ── Start ────────────────────────────────────────────────────────────────
-async function start() {
-  try {
-    await connectDB();
-    app.listen(PORT, () => {
-      console.log(`\n🏨 Hostel Management System running at http://localhost:${PORT}\n`);
-    });
-  } catch (err) {
-    console.error('❌ Failed to start:', err.message);
-    process.exit(1);
+if (process.env.NODE_ENV !== 'production' && !process.env.VERCEL) {
+  // Local development start
+  async function start() {
+    try {
+      await connectDB();
+      app.listen(PORT, () => {
+        console.log(`\n🏨 Hostel Management System running at http://localhost:${PORT}\n`);
+      });
+    } catch (err) {
+      console.error('❌ Failed to start:', err.message);
+      process.exit(1);
+    }
   }
+  start();
 }
 
-start();
+// Export for Vercel Serverless Functions
+module.exports = app;

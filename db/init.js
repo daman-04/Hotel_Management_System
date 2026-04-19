@@ -5,14 +5,24 @@ const bcrypt = require('bcryptjs');
 const { MongoMemoryServer } = require('mongodb-memory-server');
 
 let mongoServer;
+let isConnected = false;
 
 async function connectDB() {
-  mongoServer = await MongoMemoryServer.create();
-  const uri = mongoServer.getUri();
+  if (isConnected) return;
 
-  await mongoose.connect(uri);
-  console.log('✅ Connected to MongoDB (in-memory)');
-
+  if (process.env.MONGODB_URI) {
+    // Production / Vercel Environment using remote MongoDB
+    await mongoose.connect(process.env.MONGODB_URI);
+    console.log('✅ Connected to Remote MongoDB');
+  } else {
+    // Local Dev Environment using MongoMemoryServer
+    mongoServer = await MongoMemoryServer.create();
+    const uri = mongoServer.getUri();
+    await mongoose.connect(uri);
+    console.log('✅ Connected to MongoDB (in-memory)');
+  }
+  
+  isConnected = true;
   // Seed data after connection
   await seedData();
 }
