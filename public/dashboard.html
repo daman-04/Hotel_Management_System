@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Hostel Management System — Admin Dashboard" />
+  <title>Dashboard — HostelMS</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <div class="toast-stack" id="toastContainer"></div>
+
+  <div class="app-shell">
+    <!-- ═══ SIDEBAR ═══ -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-brand">
+          <div class="brand-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              <polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+          </div>
+          <div class="brand-text">
+            <h2>HostelMS</h2>
+            <span>Management System</span>
+          </div>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-group">
+          <div class="nav-group-label">Main</div>
+          <button class="nav-btn active" data-section="overview">
+            <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            Overview
+          </button>
+          <button class="nav-btn" data-section="students">
+            <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            Students
+          </button>
+          <button class="nav-btn" data-section="rooms">
+            <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            Rooms
+          </button>
+        </div>
+        <div class="nav-group">
+          <div class="nav-group-label">Operations</div>
+          <button class="nav-btn" data-section="fees">
+            <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            Fees & Payments
+          </button>
+          <button class="nav-btn" data-section="attendance">
+            <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            Attendance
+          </button>
+          <button class="nav-btn" data-section="passes">
+            <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+            Passes
+          </button>
+        </div>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button class="btn btn-ghost btn-full" id="logoutBtn" style="justify-content:flex-start; gap:10px; font-size:13px;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          Sign Out
+        </button>
+      </div>
+    </aside>
+
+    <!-- ═══ MAIN CONTENT ═══ -->
+    <div class="main-content">
+      <header class="top-bar">
+        <div class="top-bar-left">
+          <button class="menu-toggle" id="menuToggle">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
+          <h1 id="pageTitle">Overview</h1>
+        </div>
+        <div class="top-bar-right">
+          <div class="profile-chip">
+            <div class="avatar" id="userAvatar">A</div>
+            <div class="profile-info">
+              <div class="name" id="userName">Admin</div>
+              <div class="role" id="userRole">Administrator</div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="content-area">
+        <!-- ═══ OVERVIEW ═══ -->
+        <div class="section-panel active" id="section-overview">
+          <div class="metrics-grid" id="statsGrid">
+            <div class="metric-card">
+              <div class="metric-top">
+                <div class="metric-icon indigo">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                </div>
+                <span class="metric-label">Total Students</span>
+              </div>
+              <div class="metric-value" id="statStudents">—</div>
+              <div class="metric-sub">Registered residents</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-top">
+                <div class="metric-icon emerald">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                </div>
+                <span class="metric-label">Rooms</span>
+              </div>
+              <div class="metric-value" id="statRooms">—</div>
+              <div class="metric-sub" id="statRoomsSub">Loading…</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-top">
+                <div class="metric-icon amber">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                </div>
+                <span class="metric-label">Pending Fees</span>
+              </div>
+              <div class="metric-value" id="statPending">—</div>
+              <div class="metric-sub">Outstanding payments</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-top">
+                <div class="metric-icon sky">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                </div>
+                <span class="metric-label">Today's Attendance</span>
+              </div>
+              <div class="metric-value" id="statAttendance">—</div>
+              <div class="metric-sub">Checked in today</div>
+            </div>
+          </div>
+
+          <div class="panel-toolbar">
+            <h2>Recent Payments</h2>
+            <div class="toolbar-actions">
+              <button class="btn btn-ghost" id="cleanUnknownBtn" style="color: var(--destructive);">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                Remove Unknown
+              </button>
+              <button class="btn btn-ghost" id="clearLogsBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                Clear Logs
+              </button>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr><th>Student</th><th>Amount</th><th>Month</th><th>Paid Date</th><th>Status</th></tr>
+              </thead>
+              <tbody id="recentPaymentsBody">
+                <tr><td colspan="5"><div class="empty-state"><div class="spinner" style="margin:0 auto"></div></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ═══ STUDENTS ═══ -->
+        <div class="section-panel" id="section-students">
+          <div class="panel-toolbar">
+            <h2>Students</h2>
+            <div class="toolbar-actions">
+              <input type="text" id="studentSearch" class="toolbar-search" placeholder="Search students…" />
+              <button class="btn btn-primary" id="addStudentBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                Add Student
+              </button>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr><th>#</th><th>Name</th><th>Roll No</th><th>Room</th><th>Email</th><th>Phone</th><th>Actions</th></tr>
+              </thead>
+              <tbody id="studentsBody">
+                <tr><td colspan="7"><div class="empty-state"><div class="spinner" style="margin:0 auto"></div></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ═══ ROOMS ═══ -->
+        <div class="section-panel" id="section-rooms">
+          <div class="panel-toolbar">
+            <h2>Rooms</h2>
+            <div class="toolbar-actions">
+              <button class="btn btn-primary" id="addRoomBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                Add Room
+              </button>
+              <button class="btn btn-ghost" id="allocateRoomBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                Allocate
+              </button>
+            </div>
+          </div>
+          <div class="rooms-grid" id="roomsGrid">
+            <div class="empty-state"><div class="spinner" style="margin:0 auto"></div></div>
+          </div>
+        </div>
+
+        <!-- ═══ FEES ═══ -->
+        <div class="section-panel" id="section-fees">
+          <div class="panel-toolbar">
+            <h2>Fees & Payments</h2>
+            <div class="toolbar-actions">
+              <button class="btn btn-ghost" id="clearFeesBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                Clear Logs
+              </button>
+              <button class="btn btn-primary" id="recordPaymentBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                Record Payment
+              </button>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr><th>Student</th><th>Roll No</th><th>Amount</th><th>Month/Year</th><th>Paid Date</th><th>Status</th><th>Actions</th></tr>
+              </thead>
+              <tbody id="feesBody">
+                <tr><td colspan="7"><div class="empty-state"><div class="spinner" style="margin:0 auto"></div></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ═══ ATTENDANCE ═══ -->
+        <div class="section-panel" id="section-attendance">
+          <div class="panel-toolbar">
+            <h2>Daily Attendance</h2>
+            <div class="toolbar-actions">
+              <button class="btn btn-ghost" id="clearAttendanceBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                Clear Logs
+              </button>
+              <button class="btn btn-ghost" id="markAllPresentBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                Mark All Present
+              </button>
+              <input type="date" id="attendanceDate" class="toolbar-search" />
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr><th>Student</th><th>Roll No</th><th>Time</th><th>Status</th><th>Quick Actions</th></tr>
+              </thead>
+              <tbody id="attendanceBody">
+                <tr><td colspan="5"><div class="empty-state"><div class="spinner" style="margin:0 auto"></div></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ═══ PASSES ═══ -->
+        <div class="section-panel" id="section-passes">
+          <div class="panel-toolbar">
+            <h2>Passes</h2>
+            <div class="toolbar-actions" style="gap: 8px;">
+              <button class="btn btn-ghost" id="clearPassesBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                Clear Logs
+              </button>
+              <select id="quickPassStudent" class="toolbar-search" style="max-width: 150px;"></select>
+              <select id="quickPassType" class="toolbar-search" style="max-width: 120px;">
+                <option value="Day-Out">Day-Out</option>
+                <option value="Night-Out">Night-Out</option>
+                <option value="Weekend">Weekend</option>
+              </select>
+              <button class="btn btn-primary" id="quickIssuePassBtn">
+                Issue Pass
+              </button>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr><th>Student</th><th>Roll No</th><th>Type</th><th>Issue Date</th><th>Return Date</th><th>Status</th><th>Actions</th></tr>
+              </thead>
+              <tbody id="passesBody">
+                <tr><td colspan="7"><div class="empty-state"><div class="spinner" style="margin:0 auto"></div></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ MODAL ═══ -->
+  <div class="modal-backdrop" id="modalOverlay">
+    <div class="modal-dialog">
+      <div class="modal-head">
+        <h3 id="modalTitle">Modal</h3>
+        <button class="modal-dismiss" id="modalClose">✕</button>
+      </div>
+      <div class="modal-content" id="modalBody"></div>
+      <div class="modal-actions" id="modalFooter"></div>
+    </div>
+  </div>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>
