@@ -142,6 +142,9 @@ async function loadDashboard() {
     animateCounter('statRooms', data.totalRooms);
     animateCounter('statPending', data.pendingFees);
     animateCounter('statAttendance', data.todayAttendance);
+    
+    // Render Chart.js
+    renderChart(data);
 
     document.getElementById('statRoomsSub').textContent =
       `${data.occupiedRooms} occupied · ${data.availableRooms} available`;
@@ -182,6 +185,47 @@ function animateCounter(id, target) {
     }
     el.textContent = current;
   }, duration / steps);
+}
+
+let myChart = null;
+function renderChart(data) {
+  const ctx = document.getElementById('occupancyChart');
+  if (!ctx) return;
+  if (myChart) myChart.destroy();
+  
+  myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Total Rooms', 'Occupied', 'Available', 'Students'],
+      datasets: [{
+        label: 'Stat',
+        data: [data.totalRooms, data.occupiedRooms, data.availableRooms, data.totalStudents],
+        backgroundColor: [
+          'rgba(99, 102, 241, 0.4)',
+          'rgba(239, 68, 68, 0.4)',
+          'rgba(34, 197, 94, 0.4)',
+          'rgba(245, 158, 11, 0.4)'
+        ],
+        borderColor: [
+          'rgb(99, 102, 241)',
+          'rgb(239, 68, 68)',
+          'rgb(34, 197, 94)',
+          'rgb(245, 158, 11)'
+        ],
+        borderWidth: 1,
+        borderRadius: 4
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.05)' }, ticks: { precision: 0 } },
+        x: { grid: { display: false } }
+      }
+    }
+  });
 }
 
 document.getElementById('clearLogsBtn')?.addEventListener('click', async () => {
