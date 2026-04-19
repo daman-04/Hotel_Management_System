@@ -569,9 +569,9 @@ async function loadAttendance(dateFilter) {
           <td><span class="badge ${getBadge(a.status)}">${a.status}</span></td>
           <td>
             <div class="flex gap-2">
-              <button class="btn btn-ghost btn-icon btn-sm" onclick="markDailyAttendance('${a.student_id}', 'Present')" title="Present">✅</button>
-              <button class="btn btn-ghost btn-icon btn-sm" onclick="markDailyAttendance('${a.student_id}', 'Absent')" title="Absent">❌</button>
-              <button class="btn btn-ghost btn-icon btn-sm" onclick="markDailyAttendance('${a.student_id}', 'Late')" title="Late">⏰</button>
+              <button class="btn btn-ghost btn-icon btn-sm" onclick="markDailyAttendance('${a.student_id}', 'Present')" title="Present" style="color: var(--success);"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></button>
+              <button class="btn btn-ghost btn-icon btn-sm" onclick="markDailyAttendance('${a.student_id}', 'Absent')" title="Absent" style="color: var(--destructive);"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+              <button class="btn btn-ghost btn-icon btn-sm" onclick="markDailyAttendance('${a.student_id}', 'Late')" title="Late" style="color: var(--warning);"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></button>
             </div>
           </td>
         </tr>
