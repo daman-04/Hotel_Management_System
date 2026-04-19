@@ -17,7 +17,7 @@ app.use(async (req, res, next) => {
     next();
   } catch (err) {
     console.error('DB Connection Error:', err);
-    res.status(500).send('Database connection failed.');
+    res.status(500).json({ error: 'Database connection failed. To run on Vercel, youMUST configure MONGODB_URI in Vercel Settings.' });
   }
 });
 
